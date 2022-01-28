@@ -1,8 +1,7 @@
-package com.example.homework5.service;
+package com.example.homework5.service.abstraction;
 
 import com.example.homework5.Model.Product;
-import com.example.homework5.dto.ProductDto;
-import org.springframework.stereotype.Service;
+import com.example.homework5.utils.dto.ProductDto;
 
 import java.util.List;
 

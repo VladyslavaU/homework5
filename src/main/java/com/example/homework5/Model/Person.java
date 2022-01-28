@@ -1,68 +1,52 @@
 package com.example.homework5.Model;
 
-import com.example.homework5.dto.PersonDto;
+import com.example.homework5.utils.dto.PersonDto;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Accessors(chain = true)
 public class Person {
+    @EqualsAndHashCode.Exclude
     private final Integer id;
     private final String lastName;
+    @EqualsAndHashCode.Exclude
     private Integer phone;
-    private final Cart cart;
+    @EqualsAndHashCode.Exclude
+    private final List<Cart> carts = new ArrayList<>();
+    @EqualsAndHashCode.Exclude
     private static Integer generatedId = 0;
+    @EqualsAndHashCode.Exclude
+    private int cartCount = 0;
 
     public Person(final String lastName, final Integer phone) {
         this.id = ++generatedId;
         this.lastName = lastName;
         this.phone = phone;
-        this.cart = new Cart();
+        this.addCart();
     }
 
-    public Person(PersonDto personDto){
+    public Person(PersonDto personDto) {
         this(personDto.getLastName(), personDto.getPhone());
     }
 
-    public Integer getId() {
-        return id;
+    public void addCart() {
+        this.carts.add(new Cart());
+        this.cartCount++;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Integer getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Integer phone) {
-        this.phone = phone;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Person))
-            return false;
-        Person other = (Person) o;
-        boolean lastNameEquals = (this.lastName == null && other.lastName == null)
-                || (this.lastName != null && this.lastName.equals(other.lastName));
-        boolean phoneEquals = (this.phone == null && other.phone == null)
-                || (this.phone != null && this.phone.equals(other.phone));
-        return lastNameEquals && phoneEquals;
-    }
-
-    @Override
-    public final int hashCode() {
-        int result = 17;
-        if (lastName != null) {
-            result = 31 * result + lastName.hashCode();
+    public void deleteCart(final int id) {
+        if (this.carts.size() > 1) {
+            this.carts.remove(id);
+            this.cartCount--;
         }
-        if (phone != null) {
-            result = 31 * result + phone.hashCode();
-        }
-        return result;
+    }
+
+    public Cart getCart(final int id) {
+        return this.carts.get(id);
     }
 }

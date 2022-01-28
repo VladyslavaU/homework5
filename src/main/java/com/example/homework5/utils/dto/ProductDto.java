@@ -1,23 +1,12 @@
-package com.example.homework5.dto;
+package com.example.homework5.utils.dto;
 
 public class ProductDto {
 
-    private String name;
-    private Integer price;
+    private final String name;
+    private final Integer price;
 
     public ProductDto(final String name, final Integer price) {
         this.name = name;
-        this.price = price;
-    }
-
-    public ProductDto(){
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(Integer price) {
         this.price = price;
     }
 

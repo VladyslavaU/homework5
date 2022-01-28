@@ -1,9 +1,9 @@
 package com.example.homework5.controller;
 
 import com.example.homework5.Model.Product;
-import com.example.homework5.dto.ProductDto;
-import com.example.homework5.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.homework5.service.abstraction.ProductService;
+import com.example.homework5.utils.dto.ProductDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,9 +19,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
-    @Autowired
-    private ProductService service;
+    private final ProductService service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping("/all")

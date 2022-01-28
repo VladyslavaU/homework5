@@ -1,9 +1,9 @@
 package com.example.homework5.controller;
 
 import com.example.homework5.Model.Person;
-import com.example.homework5.dto.PersonDto;
-import com.example.homework5.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.homework5.service.abstraction.PersonService;
+import com.example.homework5.utils.dto.PersonDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,9 +19,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/person")
+@RequiredArgsConstructor
 public class PersonController {
-    @Autowired
-    private PersonService service;
+    private final PersonService service;
 
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Person> getPerson(@RequestParam Integer id) {
@@ -47,5 +47,17 @@ public class PersonController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Person>> getAllPersons() {
         return ResponseEntity.ok(service.getPersons());
+    }
+
+    @RequestMapping("/addCart")
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> addCart(@RequestParam Integer id) {
+        return ResponseEntity.ok(service.addCart(id));
+    }
+
+    @RequestMapping("/deleteCart")
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> deleteCart(@RequestParam Integer id, int cartNumber) {
+        return ResponseEntity.ok(service.removeCart(id, cartNumber));
     }
 }

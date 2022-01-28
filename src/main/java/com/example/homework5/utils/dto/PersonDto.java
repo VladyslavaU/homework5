@@ -1,23 +1,14 @@
-package com.example.homework5.dto;
+package com.example.homework5.utils.dto;
 
+import lombok.Data;
+
+@Data
 public class PersonDto {
-    private String lastName;
-    private Integer phone;
+    private final String lastName;
+    private final Integer phone;
 
     public PersonDto(final String lastName, final Integer phone){
         this.lastName = lastName;
-        this.phone = phone;
-    }
-
-    public PersonDto(){
-
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
